@@ -61,7 +61,29 @@ internal class Program
         }
         else 
         {
-            Console.WriteLine(output.OrderByDescending(s => s).First());
+            var outputSorted = output.OrderByDescending(s => s);
+
+            Console.WriteLine($"Elf with most calories: {outputSorted.First()}");
+
+            var topThree = 0;
+
+            i = 1;
+
+            foreach(var os in outputSorted)
+            {
+                topThree += os;
+
+                i++;
+
+                if (i == 4)
+                {
+                    break;
+                }
+
+            }
+
+            Console.WriteLine($"Calories of top three Elves: {topThree}");
         }
+
     }
 }
