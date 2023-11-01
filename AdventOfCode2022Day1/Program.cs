@@ -6,15 +6,12 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        List<int> input = new();
-
         List<int> output = new();
 
-        Dictionary<int, List<int>> cals = new();
-
-        var i = 1;
+        int cals = 0;
 
         using StreamReader reader = new("input.txt");
+
         while (reader != null && !reader.EndOfStream)
         {
             var r = reader.ReadLine();
@@ -23,17 +20,15 @@ internal class Program
             {
                 if (string.IsNullOrWhiteSpace(r))
                 {
-                    cals.Add(i, input);
+                    output.Add(cals);
 
-                    i++;
-
-                    input = new();
+                    cals = 0;
                 }
                 else
                 {
                     try
                     {
-                        input.Add(Convert.ToInt32(r));
+                        cals += Convert.ToInt32(r);
                     }
                     catch 
                     {
@@ -41,18 +36,6 @@ internal class Program
                     } 
                 }
             }
-        }
-
-        foreach (var c in cals)
-        {
-            var total = 0;
-
-            foreach (var cc in c.Value)
-            {
-                total += cc;
-            }
-
-            output.Add(total);
         }
 
         if (output.Count == 0)
@@ -67,7 +50,7 @@ internal class Program
 
             var topThree = 0;
 
-            i = 1;
+            var i = 1;
 
             foreach(var os in outputSorted)
             {
@@ -84,6 +67,5 @@ internal class Program
 
             Console.WriteLine($"Calories of top three Elves: {topThree}");
         }
-
     }
 }
