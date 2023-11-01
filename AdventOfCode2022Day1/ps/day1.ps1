@@ -1,6 +1,8 @@
 ﻿$inputList = New-Object System.Collections.Generic.List[string]
 
-$file = ".\input.txt";
+$root = Split-Path -Path $PSScriptRoot -Parent
+
+$file = ("{0}\input.txt" -f $root);
 
 $fileExists = Test-Path($file);
 
