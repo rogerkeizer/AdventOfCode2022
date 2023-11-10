@@ -6,66 +6,69 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        List<int> output = new();
+        string input = "input.txt";
 
-        int cals = 0;
-
-        using StreamReader reader = new("input.txt");
-
-        while (reader != null && !reader.EndOfStream)
-        {
-            var r = reader.ReadLine();
-
-            if (r != null)
-            {
-                if (string.IsNullOrWhiteSpace(r))
-                {
-                    output.Add(cals);
-
-                    cals = 0;
-                }
-                else
-                {
-                    try
-                    {
-                        cals += Convert.ToInt32(r);
-                    }
-                    catch 
-                    {
-                        Console.WriteLine($"Unable to parse '{r}'");
-                    } 
-                }
-            }
-        }
+        List<int> output = AddCaloriesToList(input);
 
         if (output.Count == 0)
         {
-            Console.WriteLine("no data found");
+            Console.WriteLine("no data found!\nPress any key...");
+
+            Console.ReadKey();
+
+            Environment.Exit(0);
         }
-        else 
+
+        var outputSorted = output.OrderByDescending(s => s);
+
+        Console.WriteLine($"Elf with most calories: {outputSorted.First()}");
+
+        Console.WriteLine($"Calories of top three Elves: {outputSorted.Take(3).Sum()}");
+
+        Console.WriteLine("\nPress any key...");
+
+        Console.ReadKey();
+
+        Environment.Exit(0);
+    }
+
+    private static List<int> AddCaloriesToList(string input)
+    {
+        List<int> output = new();
+
+        if (!string.IsNullOrWhiteSpace(input))
         {
-            var outputSorted = output.OrderByDescending(s => s);
+            int cals = 0;
 
-            Console.WriteLine($"Elf with most calories: {outputSorted.First()}");
+            using StreamReader reader = new(input);
 
-            var topThree = 0;
-
-            var i = 1;
-
-            foreach(var os in outputSorted)
+            while (reader != null && !reader.EndOfStream)
             {
-                topThree += os;
+                var r = reader.ReadLine();
 
-                i++;
-
-                if (i == 4)
+                if (r != null)
                 {
-                    break;
+                    if (string.IsNullOrWhiteSpace(r))
+                    {
+                        output.Add(cals);
+
+                        cals = 0;
+                    }
+                    else
+                    {
+                        try
+                        {
+                            cals += Convert.ToInt32(r);
+                        }
+                        catch
+                        {
+                            Console.WriteLine($"Unable to parse '{r}'");
+                        }
+                    }
                 }
-
             }
-
-            Console.WriteLine($"Calories of top three Elves: {topThree}");
         }
+
+        return output;
     }
 }
