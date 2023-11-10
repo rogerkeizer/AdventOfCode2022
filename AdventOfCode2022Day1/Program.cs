@@ -6,30 +6,9 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        string input = "input.txt";
-
-        List<int> output = AddCaloriesToList(input);
-
-        if (output.Count == 0)
-        {
-            Console.WriteLine("no data found!\nPress any key...");
-
-            Console.ReadKey();
-
-            Environment.Exit(0);
-        }
-
-        var outputSorted = output.OrderByDescending(s => s);
-
-        Console.WriteLine($"Elf with most calories: {outputSorted.First()}");
-
-        Console.WriteLine($"Calories of top three Elves: {outputSorted.Take(3).Sum()}");
-
-        Console.WriteLine("\nPress any key...");
-
-        Console.ReadKey();
-
-        Environment.Exit(0);
+        ProcessList(
+            AddCaloriesToList("input.txt")
+            );
     }
 
     private static List<int> AddCaloriesToList(string input)
@@ -70,5 +49,37 @@ internal class Program
         }
 
         return output;
+    }
+
+    private static void ProcessList(List<int> output)
+    {
+        if (output.Count == 0)
+        {
+            DisplayNoDataMessage();
+        }
+
+        DisplayOutput(output);
+
+        Console.ReadKey();
+
+        Environment.Exit(0);
+    }
+
+    private static void DisplayNoDataMessage()
+    {
+        Console.WriteLine("no data found!\nPress any key...");
+
+        Console.ReadKey();
+
+        Environment.Exit(0);
+    }
+
+    private static void DisplayOutput(List<int> output)
+    {
+        Console.WriteLine($"Elf with most calories: {output.OrderByDescending(s => s).First()}");
+
+        Console.WriteLine($"Calories of top three Elves: {output.OrderByDescending(s => s).Take(3).Sum()}");
+
+        Console.WriteLine("\nPress any key...");
     }
 }
