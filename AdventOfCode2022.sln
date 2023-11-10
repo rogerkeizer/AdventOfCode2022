@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode2022Day1", "AdventOfCode2022Day1\AdventOfCode2022Day1.csproj", "{799A49F0-28DF-4832-ACE6-C8BB50BDA892}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCodeDay1", "AdventOfCode2022Day1\AdventOfCodeDay1.csproj", "{799A49F0-28DF-4832-ACE6-C8BB50BDA892}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventOfCodeDay2", "AdventOfCodeDay2\AdventOfCodeDay2.csproj", "{1A939E92-C269-4C58-AB0A-89D9E3DFE5CD}"
 EndProject
