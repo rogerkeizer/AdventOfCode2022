@@ -9,23 +9,30 @@ internal static class Program
 {
     private static void Main(string[] args)
     {
-        SolveStarOne();
+        var crane9000 = new Crane(new Cargo("cargo.txt"));
 
-        SolveStarTwo();
+        var crane9001 = new Crane(new Cargo("cargo.txt"));
+
+        SolveStarOne(crane9000);
+
+        SolveStarTwo(crane9001);
     }
 
-    private static void SolveStarOne()
+    private static void SolveStarOne(Crane crane)
     {
-        var crane = new Crane(new Cargo("cargo.txt"));
-
         crane.GetRearrangementProcedure("input.txt");
 
-        crane.MoveCargo();
+        crane.MoveCargo9000();
 
         Console.WriteLine(crane.GetCratesOnTopOfStack());
     }
 
-    private static void SolveStarTwo()
-    { 
+    private static void SolveStarTwo(Crane crane)
+    {
+        crane.GetRearrangementProcedure("input.txt");
+
+        crane.MoveCargo9001();
+
+        Console.WriteLine(crane.GetCratesOnTopOfStack());
     }
 }

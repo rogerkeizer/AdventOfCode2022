@@ -13,11 +13,24 @@
             GetStartingStacksOfCrates(input);
         }
 
-        internal void GetCargoAndMove(int fromStack, int toStack, int numberCrates)
+        internal void GetCargoAndMoveOneAtATime(int fromStack, int toStack, int numberCrates)
         {
             currentCrates = GetCratesAt(fromStack);
 
-            GetCratesFrom(numberCrates);
+            GetCratesFromOneAtATime(numberCrates);
+
+            PutCratesAt(toStack);
+
+            RemoveCratesAt(fromStack, numberCrates);
+
+            Reset();
+        }
+
+        internal void GetCargoAndMoveAllAtOnce(int fromStack, int toStack, int numberCrates)
+        {
+            currentCrates = GetCratesAt(fromStack);
+
+            GetCratesFromAllAtOnce(numberCrates);
 
             PutCratesAt(toStack);
 
@@ -50,11 +63,19 @@
             return line.Split(' ')[1];
         }
 
-        private void GetCratesFrom(int numberCrates)
+        private void GetCratesFromOneAtATime(int numberCrates)
         {
             for (int i = currentCrates.Length; i > currentCrates.Length - numberCrates; i--)
             {
                 cratesToMove.Add(currentCrates[i - 1]);
+            }
+        }
+
+        private void GetCratesFromAllAtOnce(int numberCrates)
+        {
+            for (int i = currentCrates.Length - numberCrates; i < currentCrates.Length; i++)
+            {
+                cratesToMove.Add(currentCrates[i]);
             }
         }
 

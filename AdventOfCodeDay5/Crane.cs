@@ -29,7 +29,7 @@ namespace AdventOfCodeDay5
             }
         }
 
-        public void MoveCargo()
+        public void MoveCargo9000()
         {
             foreach (var move in moves)
             {
@@ -39,7 +39,21 @@ namespace AdventOfCodeDay5
 
                 var stackTo = move[2];
 
-                _cargo.GetCargoAndMove(stackFrom, stackTo, numberOfCrates);
+                _cargo.GetCargoAndMoveOneAtATime(stackFrom, stackTo, numberOfCrates);
+            }
+        }
+
+        public void MoveCargo9001()
+        {
+            foreach (var move in moves)
+            {
+                var numberOfCrates = move[0];
+
+                var stackFrom = move[1];
+
+                var stackTo = move[2];
+
+                _cargo.GetCargoAndMoveAllAtOnce(stackFrom, stackTo, numberOfCrates);
             }
         }
 
@@ -63,12 +77,12 @@ namespace AdventOfCodeDay5
 
             string[] strings = r.Split(' ');
 
-            foreach (string s in strings) 
+            foreach (string s in strings)
             {
                 var result = string.Join(string.Empty, Regex.Matches(s, @"\d+").OfType<Match>().Select(m => m.Value));
 
                 if (Regex.IsMatch(result, @"^\d+$"))
-                { 
+                {
                     move.Add(Convert.ToInt32(result));
                 }
             }
