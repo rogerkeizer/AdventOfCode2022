@@ -27,18 +27,50 @@ namespace AdventOfCodeDay7
         {
             var lines = ReadLines("input.txt");
 
-            SolveStar1(lines);
+            List<AbsolutePath> dirs = ParseDirectories(lines);
+
+            SolveStar1(dirs);
+
+            SolveStar2(dirs);
 
             Console.ReadKey();
         }
 
-        private static void SolveStar1(List<string> lines)
+        private static void SolveStar1(List<AbsolutePath> dirs)
         {
-            List<AbsolutePath> dirs = ParseDirectories(lines);
-
             var total = dirs.Where(x => x.Size <= 100000).Sum(x => x.Size);
 
             Console.WriteLine($"star 1: {total}");
+        }
+
+        private static void SolveStar2(List<AbsolutePath> dirs)
+        {
+            if (dirs != null)
+            {
+                var dirsSorted = dirs.OrderBy(s => s.Size).ToArray();
+
+                var root = dirsSorted.Last();
+
+                var spaceOnDisk = 70000000 - root.Size;
+
+                var spaceToUpdate = 30000000 - spaceOnDisk;
+
+                Console.WriteLine($"root: {root.Size}");
+
+                Console.WriteLine($"space needed: {spaceToUpdate}");
+
+                for (int i = 0; i < dirsSorted.Length; i++)
+                {
+                    Console.WriteLine($"{dirsSorted[i].Path} - {dirsSorted[i].Size}");
+
+                    if (dirsSorted[i].Size > spaceToUpdate)
+                    {
+                        Console.WriteLine($"star 2: {dirsSorted[i].Size}");
+
+                        break;
+                    }
+                }
+            }
         }
 
         private static List<AbsolutePath> ParseDirectories(List<string> lines)
