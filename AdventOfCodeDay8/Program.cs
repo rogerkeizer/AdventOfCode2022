@@ -20,7 +20,7 @@ namespace AdventOfCodeDay8
 
         private static void SolveStar1(int[,] matrix)
         {
-            PrintMatrix(matrix);
+            //PrintMatrix(matrix);
 
             var visible = FindVisibleTrees(matrix);
 
