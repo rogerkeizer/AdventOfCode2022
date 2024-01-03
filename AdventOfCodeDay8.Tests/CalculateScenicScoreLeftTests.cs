@@ -13,7 +13,7 @@ namespace AdventOfCodeDay8.Tests
         };
 
         [Fact]
-        public void CalculateScenicScoreLeft_returns_product_of_visible_trees_in_left_direction()
+        public void CalculateScenicScoreLeft_returns_number_of_visible_trees_in_left_direction()
         {
             int[,] matrix = Program.ParseFile(example);
 
