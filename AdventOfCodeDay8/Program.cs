@@ -16,6 +16,8 @@ namespace AdventOfCodeDay8
 
             SolveStar1(matrix);
 
+            SolveStar2(matrix);
+
         }
 
         private static void SolveStar1(int[,] matrix)
@@ -25,6 +27,13 @@ namespace AdventOfCodeDay8
             var visible = FindVisibleTrees(matrix);
 
             Console.WriteLine($"Number of visible trees: {visible}");
+        }
+
+        private static void SolveStar2(int[,] matrix)
+        {
+            var scenic = FindScenicScore(matrix);
+
+            Console.WriteLine($"Highest scenic score: {scenic}");
 
             Console.ReadLine();
         }
@@ -138,6 +147,200 @@ namespace AdventOfCodeDay8
             }
 
             return visible;
+        }
+
+        public static int CalculateScenicScoreUp(int[,] matrix, int posX, int posY)
+        {
+            var score = 0;
+
+            var currentHeight = matrix[posX, posY];
+
+            if (posX - 1 == -1)
+            {
+                return 0;
+            }
+
+            if (posX - 1 == 0)
+            {
+                return 1;
+            }
+
+            int x = posX - 1;
+
+            while (x > -1)
+            {
+                var newHeight = matrix[x, posY];
+
+                score++;
+
+                if (newHeight >= currentHeight)
+                {
+                    break;
+                }
+
+                x--;
+            }
+
+            return score;
+        }
+
+        public static int CalculateScenicScoreDown(int[,] matrix, int posX, int posY)
+        {
+            var score = 0;
+
+            var currentHeight = matrix[posX, posY];
+
+            if (posX + 1 == matrix.GetLength(0))
+            {
+                return 0;
+            }
+
+            if (posX + 1 == matrix.GetLength(0) - 1)
+            {
+                return 1;
+            }
+
+            int x = posX + 1;
+
+            while (x < matrix.GetLength(0))
+            {
+                var newHeight = matrix[x, posY];
+
+                score++;
+
+                if (newHeight >= currentHeight)
+                {
+                    break;
+                }
+
+                x++;
+            }
+
+            return score;
+        }
+
+        public static int CalculateScenicScoreLeft(int[,] matrix, int posX, int posY)
+        {
+            var score = 0;
+
+            var currentHeight = matrix[posX, posY];
+
+            if (posY - 1 == -1)
+            {
+                return 0;
+            }
+
+            if (posY - 1 == 0)
+            {
+                return 1;
+            }
+
+            int y = posY - 1;
+
+            while (y > -1)
+            {
+                var newHeight = matrix[posX, y];
+
+                score++;
+
+                if (newHeight >= currentHeight)
+                {
+                    break;
+                }
+
+                y--;
+            }
+
+            return score;
+        }
+
+        public static int CalculateScenicScoreRight(int[,] matrix, int posX, int posY)
+        {
+            var score = 0;
+
+            var currentHeight = matrix[posX, posY];
+
+            if (posY + 1 == matrix.GetLength(1))
+            {
+                return 0;
+            }
+
+            if (posY + 1 == matrix.GetLength(1) - 1)
+            {
+                return 1;
+            }
+
+            int y = posY + 1;
+
+            while (y < matrix.GetLength(1))
+            {
+                var newHeight = matrix[posX, y];
+
+                score++;
+
+                if (newHeight >= currentHeight)
+                {
+                    break;
+                }
+
+                y++;
+            }
+
+            return score;
+        }
+
+        public static int FindScenicScore(int[,] matrix)
+        {
+            var scenicScore = 0;
+
+            int rows = matrix.GetLength(0);
+
+            int cols = matrix.GetLength(1);
+
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < cols; j++)
+                {
+                    var up = CalculateScenicScoreUp(matrix, i, j);
+
+                    var down = CalculateScenicScoreDown(matrix, i, j);
+
+                    var left = CalculateScenicScoreLeft(matrix, i, j);
+
+                    var right = CalculateScenicScoreRight(matrix, i, j);
+
+                    if (up == 0)
+                    {
+                        up = 1;
+                    }
+
+                    if (down == 0)
+                    {
+                        down = 1;
+                    }
+
+                    if (left == 0)
+                    {
+                        left = 1;
+                    }
+
+                    if (right == 0)
+                    {
+                        right = 1;
+                    }
+
+                    var thisScore = up * down * left * right;
+
+                    Console.WriteLine($"{scenicScore} - {thisScore} - {i} - {j}");
+
+                    if (thisScore > scenicScore)
+                    {
+                        scenicScore = thisScore;
+                    }
+                }
+            }
+
+            return scenicScore;
         }
 
         static void PrintMatrix(int[,] matrix)
