@@ -41,9 +41,14 @@ namespace AdventOfCodeDay9
 
         private static void SolveStar2()
         {
-            var moves = ParseInput("input-test1.txt");
+            // Check that SolveStar2() has the same result als SolveStar1()
+            // with this input:
+            // var moves = ParseInput("input-test1.txt");
+            // int lengthRope = 2;
 
-            int lengthRope = 2; //10
+            var moves = ParseInput("input.txt");
+
+            int lengthRope = 10;
 
             HashSet<Position> positions = new();
 
@@ -54,25 +59,29 @@ namespace AdventOfCodeDay9
                 rope.Add(new Position(0, 0));
             }
 
-            int last = lengthRope - 1;
-
             foreach (var move in moves)
             {
                 int i = 0;
 
+                rope[i] = rope[i].Move(move);
+
                 while (i < lengthRope)
                 {
-                    if (i == last)
+                    if (i == lengthRope - 1)
                     {
                         break;
                     }
                     else
                     {
-                        rope[i] = rope[i].Move(move);
+                        for (int f = i + 1; f < lengthRope; f++)
+                        {
+                            rope[f] = rope[f].Follow(rope[f - 1], rope[f]);
 
-                        rope[i + 1] = rope[i + 1].Follow(rope[i], rope[i + 1]);
-
-                        positions.Add(new Position(rope[i + 1].x, rope[i + 1].y));
+                            if (f == lengthRope - 1)
+                            {
+                                positions.Add(new Position(rope[f].x, rope[f].y));
+                            }
+                        }
                     }
 
                     i++;
